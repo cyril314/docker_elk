@@ -12,6 +12,7 @@
 
 ## 使用方式
         # 将本项目放入搭建好docker环境的服务器中后执行如下操作
+        $ docker-compose up setup --rm
         $ docker-compose up -d
 
         # 项目没有将ES的数据目录设置到指定位置，所以使用的是默认容器存储
@@ -19,3 +20,6 @@
 
         # 删除存储
         $ docker volume ls -q |grep elastic |xargs docker volume rm
+
+        # 安装其他控件
+        $ docker compose -f docker-compose.yml -f extensions/fleet/fleet-compose.yml up -d
