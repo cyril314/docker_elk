@@ -22,6 +22,7 @@ argument referencing the `fleet-compose.yml` file:
 
 ```console
 $ docker compose -f docker-compose.yml -f extensions/fleet/fleet-compose.yml up
+$ docker compose -f docker-compose.yml -f extensions/fleet/fleet-compose.yml -f extensions/fleet/agent-apmserver-compose.yml up
 ```
 
 ## Configuring Fleet Server

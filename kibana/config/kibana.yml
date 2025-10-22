@@ -25,9 +25,11 @@ elasticsearch.password: ${KIBANA_SYSTEM_PASSWORD}
 ## https://www.elastic.co/guide/en/kibana/current/kibana-encryption-keys.html
 #
 #xpack.security.encryptionKey:
-#xpack.encryptedSavedObjects.encryptionKey:
+xpack.encryptedSavedObjects.encryptionKey: TJYM21232F297A57A5A743894A0E4A801FC3
 #xpack.reporting.encryptionKey:
-
+#xpack.telemetry.enabled: false
+#xpack.telemetry.optIn: false
+telemetry.enabled: false
 ## Fleet
 ## https://www.elastic.co/guide/en/kibana/current/fleet-settings-kb.html
 #

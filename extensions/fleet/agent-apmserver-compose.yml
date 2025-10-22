@@ -1,19 +1,10 @@
-# Example of Fleet-enrolled Elastic Agent pre-configured with an agent policy
-# for running the APM Server integration (see kibana.yml).
-#
-# Run with
-#   docker compose \
-#     -f docker-compose.yml \
-#     -f extensions/fleet/fleet-compose.yml \
-#     -f extensions/fleet/agent-apmserver-compose.yml \
-#     up
-
 services:
   apm-server:
     build:
       context: extensions/fleet/
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
+    image: docker_elk_apm-server:${ELASTIC_VERSION}
     volumes:
       - apm-server:/usr/share/elastic-agent/state:Z
     environment:

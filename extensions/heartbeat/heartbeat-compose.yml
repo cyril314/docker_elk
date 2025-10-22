@@ -4,6 +4,7 @@ services:
       context: extensions/heartbeat/
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
+    image: docker_elk_heartbeat:${ELASTIC_VERSION}
     command:
       # Log to stderr.
       - -e
