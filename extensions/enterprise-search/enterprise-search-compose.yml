@@ -4,6 +4,8 @@ services:
       context: extensions/enterprise-search/
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
+
+    image: docker_elk_enterprise-search:${ELASTIC_VERSION}
     volumes:
       - ./extensions/enterprise-search/config/enterprise-search.yml:/usr/share/enterprise-search/config/enterprise-search.yml:ro,Z
     environment:
@@ -11,7 +13,7 @@ services:
       ENT_SEARCH_DEFAULT_PASSWORD: 'changeme'
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
     ports:
-      - 3002:3002
+      - "3002:3002"
     networks:
       - elk
     depends_on:
