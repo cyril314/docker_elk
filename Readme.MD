@@ -13,6 +13,9 @@
 
 ## 使用方式
 ```
+# 开通端口
+$ firewall-cmd --zone=public --add-port=5601/tcp --add-port=9200/tcp --add-port=9300/tcp --permanent && firewall-cmd --reload
+
 # 将本项目放入搭建好docker环境的服务器中后执行如下操作
 $ docker-compose up setup
 $ docker-compose up -d
