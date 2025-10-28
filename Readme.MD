@@ -77,6 +77,8 @@ curl -X POST "localhost:9200/_cache/clear?pretty" -H "Authorization: Basic $(ech
 curl -X POST "localhost:9200/_forcemerge?only_expunge_deletes=true&max_num_segments=1&pretty"
 # 刷新所有索引
 curl -X POST "localhost:9200/_flush?pretty"  -H "Authorization: Basic $(echo -n elastic:changeme | base64)"
+
+# 添加fleet-agent时如果遇到证书问题添加不上可以使用参数临时跳过验证，添加参数' --insecure'
 ```
 
 ## ES配置说明
