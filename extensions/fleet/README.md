@@ -21,7 +21,9 @@ To include Fleet Server in the stack, run docker-compose from the root of the re
 argument referencing the `fleet-compose.yml` file:
 
 ```console
+# 首先启动fleet服务
 $ docker-compose -f docker-compose.yml -f extensions/fleet/fleet-compose.yml up -d
+# 修改agent-apmserver-compose.yml中配置FLEET_ENROLLMENT_TOKEN参数后执行
 $ docker-compose -f docker-compose.yml -f extensions/fleet/fleet-compose.yml -f extensions/fleet/agent-apmserver-compose.yml up -d
 ```
 

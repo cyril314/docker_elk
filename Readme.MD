@@ -16,6 +16,10 @@
 # 开通端口
 $ firewall-cmd --zone=public --add-port=5601/tcp --add-port=9200/tcp --add-port=9300/tcp --permanent && firewall-cmd --reload
 
+# 开启代理
+$ export HTTP_PROXY=http://192.168.30.41:1081 && export HTTPS_PROXY=http://192.168.30.41:1081
+$ unset HTTP_PROXY HTTPS_PROXY
+
 # 将本项目放入搭建好docker环境的服务器中后执行如下操作
 $ docker-compose up setup
 $ docker-compose up -d
@@ -32,12 +36,33 @@ $ docker-compose -f docker-compose.yml -f extensions/fleet/fleet-compose.yml up 
 # 访问不到security可能需要代理支持
 $ vi /etc/systemd/system/docker.service.d/http-proxy.conf
 [Service]
-Environment="HTTP_PROXY=http://192.168.30.227:20171"
-Environment="HTTPS_PROXY=http://192.168.30.227:20171"
+Environment="HTTP_PROXY=http://127.0.0.1:20171"
+Environment="HTTPS_PROXY=http://127.0.0.1:20171"
 Environment="NO_PROXY=localhost,127.0.0.1"
 
 $ systemctl daemon-reload && systemctl restart docker
+
 ```
+## docker配置
+```
+创建文件：sudo vi /etc/docker/daemon.json
+添加内容：如果版本低于 18.xx需要使用'graph'代替
+{
+  "data-root": "/home/data/docker",
+  "registry-mirrors": [
+    "https://hub-mirror.c.163.com",
+    "https://dockerproxy.net",
+    "https://i9h29342.mirror.aliyuncs.com",
+    "https://ee14a5b07b11413ba6d4af63f0eaea5b.mirror.swr.myhuaweicloud.com",
+    "http://hammal.staronearth.win",
+    "http://hub.staronearth.win",
+    "https://docker.xuanyuan.me"
+  ],
+  "dns": ["119.29.29.29", "114.114.114.114"]
+}
+如果需要移动镜像存放位置需要执行: mkdir -p /home/data && mv /var/lib/docker /home/data/docker
+```
+
 ## 解决证书过期登录不了
 
 ```

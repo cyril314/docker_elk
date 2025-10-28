@@ -82,6 +82,15 @@ services:
       - "5601:5601"
     environment:
       KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+      NODE_OPTIONS: --max-old-space-size=2048
+    mem_limit: 2g
+    mem_reservation: 1g
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
     networks:
       - elk
     depends_on:
