@@ -4,17 +4,19 @@ services:
       context: extensions/enterprise-search/
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
-
+    hostname: enterprise-search
     image: docker_elk_enterprise-search:${ELASTIC_VERSION}
     volumes:
       - ./extensions/enterprise-search/config/enterprise-search.yml:/usr/share/enterprise-search/config/enterprise-search.yml:ro,Z
     environment:
-      JAVA_OPTS: -Xms2g -Xmx2g
-      ENT_SEARCH_DEFAULT_PASSWORD: 'changeme'
-      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      - "ES_JAVA_OPTS=-Xms512m -Xmx2g"
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-}
+      - ENT_SEARCH_DEFAULT_PASSWORD='changeme'
+      - ENT_SEARCH_SKIP_KIBANA_AVAILABILITY_CHECK=true
     ports:
       - "3002:3002"
     networks:
       - elk
     depends_on:
       - elasticsearch
+      - kibana

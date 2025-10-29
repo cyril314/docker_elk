@@ -2,12 +2,11 @@
 ## Enterprise Search core configuration
 ## https://www.elastic.co/guide/en/enterprise-search/current/configuration.html
 #
-
 ## --------------------- REQUIRED ---------------------
 
 # Encryption keys to protect application secrets.
 secret_management.encryption_keys:
-  - "${ELASTIC_PASSWORD}defaultencryptionkey123"
+  - ${ELASTIC_PASSWORD}defaultencryptionkey123
 
 ## ----------------------------------------------------
 
@@ -15,8 +14,8 @@ secret_management.encryption_keys:
 ent_search.listen_host: 0.0.0.0
 
 # URL at which users reach Enterprise Search / Kibana
-ent_search.external_url: http://localhost:3002
-kibana.host: http://localhost:5601
+ent_search.external_url: http://enterprise-search:3002
+kibana.host: http://kibana:5601
 
 # Elasticsearch URL and credentials
 elasticsearch.host: http://elasticsearch:9200

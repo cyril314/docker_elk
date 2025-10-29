@@ -78,7 +78,13 @@ curl -X POST "localhost:9200/_forcemerge?only_expunge_deletes=true&max_num_segme
 # 刷新所有索引
 curl -X POST "localhost:9200/_flush?pretty"  -H "Authorization: Basic $(echo -n elastic:changeme | base64)"
 
-# 添加fleet-agent时如果遇到证书问题添加不上可以使用参数临时跳过验证，添加参数' --insecure'
+# 添加fleet-agent时如果遇到证书问题添加不上可以使用参数临时跳过验证，禁用SSL/TLS验证参数' --insecure'，强制安装参数' --force'
+如果时windows上添加，需要在管理员的PowerShell中执行添加服务命令，例如
+$ .\elastic-agent.exe install --url=http://192.168.31.84:8220 --enrollment-token=xxxx --insecure --force
+以管理员权限运行服务,先停止服务，修改执行权限后再启动
+$ sc.exe config "Elastic Agent" obj= "LocalSystem"
+添加hosts配置，用来确保局域网中能正常访问到fleet-server服务,以管理员身份运行 PowerShell，然后执行：
+$ Add-Content -Path "C:\Windows\System32\drivers\etc\hosts" -Value "`r192.168.31.84`t`tfleet-server" -Force
 ```
 
 ## ES配置说明
@@ -104,3 +110,21 @@ indices.memory.index_buffer_size: 20%  # 默认10%
 1. 首先配置高级管理中的威胁索引和'Elasticsearch 索引'添加',tjym_*'
 2. 在数据视图中创建视图
 3. 导入数据会创建tjym_ecs索引
+
+## 设置enterprise-search只读模式
+```
+# 设置只读
+PUT /_cluster/settings
+{
+    "persistent": {
+      "cluster.blocks.read_only": false,
+      "cluster.blocks.read_only_allow_delete": false
+    },
+    "transient": {
+      "cluster.blocks.read_only": false,
+      "cluster.blocks.read_only_allow_delete": false
+    }
+}
+# 查看状态
+GET _cluster/settings?pretty
+```
