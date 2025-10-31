@@ -42,6 +42,10 @@ Environment="NO_PROXY=localhost,127.0.0.1"
 
 $ systemctl daemon-reload && systemctl restart docker
 
+# 生成证书命令，进入ES容器
+$ ./bin/elasticsearch-certutil ca --out /usr/share/elasticsearch/data/ca/elastic-stack-ca.zip --pem
+$ ./bin/elasticsearch-certutil cert --name fleet-server --ca-cert /usr/share/elasticsearch/data/ca/ca.crt \
+  --ca-key /usr/share/elasticsearch/data/ca/ca.key --dns fleet-server --ip 192.168.31.84 --pem
 ```
 ## docker配置
 ```
